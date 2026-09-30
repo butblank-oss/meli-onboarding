@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>맬리브레인 3기 현장 설문 — 종이 백업</title>
+<!--
+  용도(먀오 #969·#976): 직원이 들고 어르신께 여쭙는 '인터뷰 문항지'. 현장은 PC/노트북 기본이고,
+     이 종이는 기기 백업 겸 인터뷰 보조다. 70대가 옆에서 같이 봐도 좋게 큰 글씨는 유지.
+     대표 확정(#1084): ①노트북 ②인터뷰 종이 둘 다 현장에서 쓴다. 이 문항지가 ②의 최종본이다(문항·정본·순서 그대로).
+  정본: namdongu-설문정본/defaultSchema.ts (v3). 문항·보기 그대로. 70대 가독 우선 큰 글씨.
+  인쇄: 브라우저에서 Ctrl+P → A4 세로, 여백 '기본', 배경그래픽 끔(흑백).
+  나중에 앱으로 재입력하므로 최소 수량만 인쇄한다.
+-->
+<style>
+  :root { --ink:#111; --line:#111; --mut:#444; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; padding:0; color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+    font-size:18px; line-height:1.5; -webkit-print-color-adjust:exact; word-break:keep-all; }
+  .page { width:210mm; min-height:297mm; padding:14mm 13mm; margin:0 auto; }
+  h1 { font-size:26px; margin:0 0 2px; }
+  .sub { font-size:15px; color:var(--mut); margin:0 0 10px; }
+  .band { border:2px solid var(--line); border-radius:8px; padding:10px 12px; margin:10px 0 14px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:17px; }
+  .fill { border-bottom:1.5px solid var(--line); min-width:120px; display:inline-block; height:1.4em; flex:1; }
+  .sec-title { font-size:21px; font-weight:800; margin:18px 0 6px; padding:4px 0; border-bottom:3px solid var(--line); }
+  .target-note { font-size:15px; color:var(--mut); font-weight:600; }
+  .q { margin:12px 0 14px; break-inside:avoid; }
+  .q .label { font-size:20px; font-weight:700; margin-bottom:6px; }
+  .q .star { color:#000; }
+  .q .many { font-size:14px; font-weight:700; border:1.5px solid var(--line); border-radius:6px; padding:1px 7px; margin-left:6px; white-space:nowrap; }
+  .q .help { font-size:15px; color:var(--mut); margin:2px 0 6px; }
+  .opts { display:flex; flex-wrap:wrap; gap:7px 18px; }
+  .opt { display:flex; align-items:center; gap:8px; font-size:18px; min-width:44%; }
+  .box { width:20px; height:20px; border:2px solid var(--line); border-radius:4px; display:inline-block; flex:0 0 auto; }
+  .opt.etc { width:100%; }
+  .etcline { border-bottom:1.5px solid var(--line); flex:1; height:1.3em; min-width:120px; }
+  .writein { border:1.5px solid var(--line); border-radius:6px; height:2em; margin-top:4px; }
+  .writein.big { height:4em; }
+  .gamecard { font-size:16px; color:var(--mut); border:1.5px dashed var(--line); border-radius:6px; padding:6px 10px; }
+  .divider { text-align:center; font-size:14px; color:var(--mut); margin:8px 0; }
+  @media print {
+    .page { margin:0; }
+    .pagebreak { break-before: page; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>맬리브레인 3기 현장 설문 <span style="font-size:16px;font-weight:500">(종이 백업)</span></h1>
+  <p class="sub">2026-10-30 인천 남동구 치매안심센터 · 직원이 들고 여쭙는 문항지(PC 입력 백업 겸용) · 받아적은 내용은 앱에 다시 넣습니다.</p>
+
+  <div class="band">
+    <div class="row" style="margin-bottom:8px">
+      <b>대상(직원이 표시):</b>
+      <span class="opt" style="min-width:auto"><span class="box"></span> 활동 중</span>
+      <span class="opt" style="min-width:auto"><span class="box"></span> 쉬는 중</span>
+      <span class="opt" style="min-width:auto"><span class="box"></span> 거의 미사용</span>
+    </div>
+    <div class="row">
+      <span>성함 <span class="fill"></span></span>
+      <span>전화 뒷 4자리 <span class="fill" style="min-width:90px;flex:0 0 90px"></span></span>
+      <span>응대 직원 <span class="fill" style="min-width:90px"></span></span>
+    </div>
+  </div>
+
+  <!-- 동의 (공통) -->
+  <div class="sec-title">동의 <span class="target-note">— 모든 분 공통</span></div>
+
+  <div class="q">
+    <div class="label">개인정보 수집·이용에 동의하셨나요? <span class="star">★</span></div>
+    <div class="help">리워드 배송·설문 분석 목적. 동의서를 읽어 드린 뒤 표시하세요. 미동의면 아래 문항은 비우고 맨 끝 '응대 결과'·'메모'만 적습니다.</div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 동의</span>
+      <span class="opt"><span class="box"></span> 미동의</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">오늘 행사는 어떻게 알고 오셨어요? <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 보건소 문자·전화</span>
+      <span class="opt"><span class="box"></span> 교실 선생님 안내</span>
+      <span class="opt"><span class="box"></span> 앱 알림</span>
+      <span class="opt"><span class="box"></span> 가족·지인 권유</span>
+      <span class="opt"><span class="box"></span> 지나가다가</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <!-- 활동 중 -->
+  <div class="sec-title">활동 중 <span class="target-note">— '활동 중'인 분만 작성</span></div>
+
+  <div class="q">
+    <div class="label">요즘 맬리브레인을 얼마나 자주 하세요? <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 거의 매일</span>
+      <span class="opt"><span class="box"></span> 주 3~4회</span>
+      <span class="opt"><span class="box"></span> 주 1~2회</span>
+      <span class="opt"><span class="box"></span> 가끔</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">좋은 점을 모두 골라 주세요 <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 게임이 재미있음</span>
+      <span class="opt"><span class="box"></span> 기억력·집중력에 도움</span>
+      <span class="opt"><span class="box"></span> 매일 할 거리가 생김</span>
+      <span class="opt"><span class="box"></span> 운동 영상</span>
+      <span class="opt"><span class="box"></span> 마음 챙김(명상)</span>
+      <span class="opt"><span class="box"></span> 랭킹·트로피</span>
+      <span class="opt"><span class="box"></span> 보건소와 연결된 느낌</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">즐겨 하시는 게임 <span class="many">여러 개</span></div>
+    <div class="gamecard">▶ 게임 카드(17종)를 보여 드리고 짚으신 게임 이름을 적어 주세요: <span class="etcline" style="min-width:60%"></span></div>
+  </div>
+
+  <div class="q">
+    <div class="label">불편한 점을 모두 골라 주세요 <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 없음</span>
+      <span class="opt"><span class="box"></span> 글씨·버튼이 작음</span>
+      <span class="opt"><span class="box"></span> 소리가 작음</span>
+      <span class="opt"><span class="box"></span> 게임이 어려움</span>
+      <span class="opt"><span class="box"></span> 게임이 쉬워 지루함</span>
+      <span class="opt"><span class="box"></span> 알림이 너무 많음</span>
+      <span class="opt"><span class="box"></span> 로그인이 자꾸 풀림</span>
+      <span class="opt"><span class="box"></span> 휴대폰이 느려짐</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">4기에 더 있었으면 하는 것 <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 새 게임</span>
+      <span class="opt"><span class="box"></span> 더 쉬운 단계</span>
+      <span class="opt"><span class="box"></span> 가족과 함께 하기</span>
+      <span class="opt"><span class="box"></span> 친구와 겨루기</span>
+      <span class="opt"><span class="box"></span> 오프라인 모임</span>
+      <span class="opt"><span class="box"></span> 건강 정보</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">하시고 나서 달라진 점 <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 기억력이 좋아진 느낌</span>
+      <span class="opt"><span class="box"></span> 집중력</span>
+      <span class="opt"><span class="box"></span> 생활에 활력</span>
+      <span class="opt"><span class="box"></span> 대화거리가 생김</span>
+      <span class="opt"><span class="box"></span> 잘 모르겠음</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">주변 분께 추천하실 의향이 있으세요? <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 꼭 추천</span>
+      <span class="opt"><span class="box"></span> 추천</span>
+      <span class="opt"><span class="box"></span> 보통</span>
+      <span class="opt"><span class="box"></span> 추천 안 함</span>
+    </div>
+  </div>
+
+  <!-- 쉬는 중 -->
+  <div class="sec-title pagebreak">쉬는 중 <span class="target-note">— '쉬는 중'인 분만 작성</span></div>
+
+  <div class="q">
+    <div class="label">요즘 안 하시게 된 이유를 모두 골라 주세요 <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 바빠서</span>
+      <span class="opt"><span class="box"></span> 잊어버려서</span>
+      <span class="opt"><span class="box"></span> 재미가 줄어서</span>
+      <span class="opt"><span class="box"></span> 어려워서</span>
+      <span class="opt"><span class="box"></span> 휴대폰 고장·교체</span>
+      <span class="opt"><span class="box"></span> 로그인이 안 됨</span>
+      <span class="opt"><span class="box"></span> 건강 문제</span>
+      <span class="opt"><span class="box"></span> 교실이 끝나서</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">기억나는 게임을 짚어 주세요 <span class="many">여러 개</span></div>
+    <div class="gamecard">▶ 게임 카드(17종)를 보여 드리고 짚으신 게임 이름을 적어 주세요: <span class="etcline" style="min-width:60%"></span></div>
+  </div>
+
+  <div class="q">
+    <div class="label">하실 때 좋았던 점 <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 게임이 재미있음</span>
+      <span class="opt"><span class="box"></span> 기억력·집중력에 도움</span>
+      <span class="opt"><span class="box"></span> 매일 할 거리가 생김</span>
+      <span class="opt"><span class="box"></span> 운동 영상</span>
+      <span class="opt"><span class="box"></span> 마음 챙김(명상)</span>
+      <span class="opt"><span class="box"></span> 랭킹·트로피</span>
+      <span class="opt"><span class="box"></span> 보건소와 연결된 느낌</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">다시 하시려면 어떤 도움이 필요하세요? <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 알림 설정</span>
+      <span class="opt"><span class="box"></span> 가족 도움</span>
+      <span class="opt"><span class="box"></span> 전화 안내</span>
+      <span class="opt"><span class="box"></span> 오프라인 모임</span>
+      <span class="opt"><span class="box"></span> 글씨 크게</span>
+      <span class="opt"><span class="box"></span> 필요 없음</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">다시 시작해 보시겠어요? <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 오늘 바로</span>
+      <span class="opt"><span class="box"></span> 4기부터</span>
+      <span class="opt"><span class="box"></span> 생각해 볼게요</span>
+      <span class="opt"><span class="box"></span> 안 함</span>
+    </div>
+  </div>
+
+  <!-- 거의 미사용 -->
+  <div class="sec-title pagebreak">거의 미사용 <span class="target-note">— '거의 미사용'인 분만 작성</span></div>
+
+  <div class="q">
+    <div class="label">앱을 거의 못 쓰신 이유를 모두 골라 주세요 <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 설치를 못 함</span>
+      <span class="opt"><span class="box"></span> 로그인이 안 됨</span>
+      <span class="opt"><span class="box"></span> 사용법을 모름</span>
+      <span class="opt"><span class="box"></span> 시간이 없음</span>
+      <span class="opt"><span class="box"></span> 관심이 없음</span>
+      <span class="opt"><span class="box"></span> 휴대폰 없음·고장</span>
+      <span class="opt"><span class="box"></span> 눈이 불편함</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">쓰시는 휴대폰 <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 안드로이드</span>
+      <span class="opt"><span class="box"></span> 아이폰</span>
+      <span class="opt"><span class="box"></span> 폴더폰·없음</span>
+      <span class="opt"><span class="box"></span> 모름</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">평소 휴대폰을 도와주는 분 <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 자녀</span>
+      <span class="opt"><span class="box"></span> 배우자</span>
+      <span class="opt"><span class="box"></span> 손주</span>
+      <span class="opt"><span class="box"></span> 복지관·보건소</span>
+      <span class="opt"><span class="box"></span> 없음</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">현장 조치 체크리스트 <span class="many">여러 개</span></div>
+    <div class="help">함께 완료한 항목을 모두 표시하세요.</div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 설치</span>
+      <span class="opt"><span class="box"></span> 로그인</span>
+      <span class="opt"><span class="box"></span> 첫 게임 실행</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">막힌 지점 <span class="star">★</span> <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 없음(모두 완료)</span>
+      <span class="opt"><span class="box"></span> 앱스토어 계정</span>
+      <span class="opt"><span class="box"></span> 비밀번호</span>
+      <span class="opt"><span class="box"></span> 본인인증</span>
+      <span class="opt"><span class="box"></span> 기기 용량</span>
+      <span class="opt"><span class="box"></span> OS 버전</span>
+      <span class="opt etc"><span class="box"></span> 기타 <span class="etcline"></span></span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">앞으로 써 보실 생각이 있으세요? <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 4기부터 해볼게요</span>
+      <span class="opt"><span class="box"></span> 가족과 함께 해볼게요</span>
+      <span class="opt"><span class="box"></span> 어려울 것 같아요</span>
+    </div>
+  </div>
+
+  <!-- 마무리 (공통) -->
+  <div class="sec-title pagebreak">마무리 <span class="target-note">— 모든 분 공통</span></div>
+
+  <div class="q">
+    <div class="label">4기 사전신청 <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 신청</span>
+      <span class="opt"><span class="box"></span> 미신청</span>
+      <span class="opt"><span class="box"></span> 보류</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">앞으로 안내받고 싶은 방법 <span class="many">여러 개</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 문자</span>
+      <span class="opt"><span class="box"></span> 전화</span>
+      <span class="opt"><span class="box"></span> 카카오톡</span>
+      <span class="opt"><span class="box"></span> 보건소 방문</span>
+      <span class="opt"><span class="box"></span> 가족을 통해</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">리워드 처리 <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 현장 지급</span>
+      <span class="opt"><span class="box"></span> 추후 배송</span>
+      <span class="opt"><span class="box"></span> 대상 아님</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">실명 <span style="font-size:15px;color:var(--mut);font-weight:500">(선택 · 리워드가 '현장 지급/추후 배송'일 때만)</span></div>
+    <div class="writein"></div>
+  </div>
+
+  <div class="q">
+    <div class="label">응대 결과 <span class="star">★</span></div>
+    <div class="opts">
+      <span class="opt"><span class="box"></span> 설문 완료</span>
+      <span class="opt"><span class="box"></span> 일부 응답</span>
+      <span class="opt"><span class="box"></span> 응대 거부</span>
+      <span class="opt"><span class="box"></span> 재방문 예정</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="label">메모</div>
+    <div class="writein big"></div>
+  </div>
+
+  <p class="sub" style="margin-top:16px">★ = 꼭 받아야 하는 문항 · '여러 개'는 해당하는 것을 모두 표시 · 이 종이는 응대 후 앱에 다시 입력합니다.</p>
+</div>
+
+</body>
+</html>
