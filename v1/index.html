@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>맬리브레인 온보딩 프로토타입 v1</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+/* 70대 접근성 우선 — 색·크기·여백은 핸드오프 v2 톤을 따름(단일 standalone) */
+:root{
+  --primary:#0E7A52; --primary-text:#0A6B47; --tint:#EAF4EE;
+  --ink:#191F28; --ink60:#5C6675; --surface:#F2F4F6; --bg:#20262E;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body,body *{word-break:keep-all;overflow-wrap:break-word}
+body{margin:0;background:var(--bg);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;align-items:flex-start;min-height:100vh;gap:24px;padding:24px}
+
+/* 좌측 검수 패널 */
+.panel{width:240px;flex:none;background:#171C22;color:#D1D6DB;border-radius:16px;
+  padding:20px;font-size:14px;position:sticky;top:24px}
+.panel h1{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.5;margin:0 0 16px}
+.panel .grp{border-top:1px solid #2A313A;margin-top:16px;padding-top:12px}
+.panel .grp-t{font-size:12px;font-weight:700;color:#6EE7B7;letter-spacing:.04em;margin-bottom:8px}
+.panel .navbtn{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px;color:#E6EAF0;
+  background:#20262E;margin-bottom:4px;line-height:1.4}
+.panel .navbtn:hover{background:#2A313A}
+.panel .navbtn.on{background:var(--primary);color:#fff;font-weight:700}
+.panel .dayrow{display:flex;gap:6px;margin-top:4px}
+.panel .daybtn{flex:1;text-align:center;padding:10px 4px;border-radius:8px;cursor:pointer;
+  font-size:14px;font-weight:700;color:#E6EAF0;background:#20262E}
+.panel .daybtn.on{background:#6EE7B7;color:#0A2A1E}
+.panel .hint{font-size:12px;color:#8B949E;line-height:1.6;margin-top:8px}
+
+/* 폰 프레임 */
+.phone{width:393px;height:852px;background:var(--surface);border-radius:40px;overflow:hidden;
+  position:relative;box-shadow:0 24px 70px rgba(0,0,0,.45);flex:none}
+.statusbar{height:52px;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 8px;font-size:14px;font-weight:600;color:var(--ink)}
+.statusbar .sig{letter-spacing:.1em;color:#4E5968}
+.screen{display:none;height:800px;overflow-y:auto;padding:0 20px 40px;flex-direction:column}
+.screen.show{display:flex}
+.screen::-webkit-scrollbar{width:0}
+
+/* 공통 요소 */
+.grow{flex:1}
+.center{align-items:center;text-align:center}
+.title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.3}
+.lede{font-size:20px;color:var(--ink);line-height:1.5}
+.body{font-size:17px;color:var(--ink60);line-height:1.55}
+.cap{font-size:15px;color:var(--ink60);line-height:1.5}
+.card{background:#fff;border-radius:20px;padding:20px}
+.mascot{font-size:96px;line-height:1}
+.mascot-sm{font-size:56px;line-height:1}
+
+/* 버튼 — 주 버튼 60px, 글씨 18px */
+.btn{height:60px;border-radius:16px;font-size:18px;font-weight:700;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;width:100%}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-tint{background:var(--tint);color:var(--primary-text)}
+
+/* 입력칸 */
+.input{width:100%;height:64px;border:2px solid #D1D6DB;border-radius:16px;padding:0 20px;
+  font-size:22px;font-weight:700;color:var(--ink);text-align:center;letter-spacing:.05em}
+.input:focus{outline:none;border-color:var(--primary)}
+.otp{display:flex;gap:8px;justify-content:center}
+.otp .cell{width:48px;height:64px;border:2px solid #D1D6DB;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:var(--ink)}
+.otp .cell.filled{border-color:var(--primary);background:var(--tint)}
+
+/* 목록 행 — 최소 64px */
+.row{min-height:64px;display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:#fff;border-radius:16px;margin-bottom:8px}
+.row .ic{width:48px;height:48px;border-radius:14px;flex:none;display:flex;
+  align-items:center;justify-content:center;font-size:26px}
+.row.locked{opacity:.72}
+.row.locked .ic{background:var(--surface)}
+.row .rt{font-size:18px;font-weight:700;color:var(--ink);line-height:1.3}
+.row .rs{font-size:15px;color:var(--ink60);margin-top:2px}
+.row .lock{font-size:15px;font-weight:700;color:var(--ink60);background:var(--surface);
+  border-radius:10px;padding:6px 12px;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--tint);color:var(--primary-text);
+  font-size:16px;font-weight:800;padding:8px 14px;border-radius:99px}
+.spacer{flex:1}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 좌측 검수 패널 ══════════ -->
+<div class="panel">
+  <h1>맬리브레인 온보딩 프로토타입 v1<br>· 라이트(자유수정)</h1>
+
+  <div class="grp">
+    <div class="grp-t">화면</div>
+    <div id="navList"></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-t">첫 주 홈 — 점진 개방</div>
+    <div class="dayrow" id="dayRow">
+      <div class="daybtn" data-day="1">1일차</div>
+      <div class="daybtn" data-day="2">2일차</div>
+      <div class="daybtn" data-day="4">4일차</div>
+    </div>
+    <div class="hint">1일차=운동만 · 2일차=운동+게임 · 4일차=3트랙 전부+검사안내</div>
+  </div>
+</div>
+
+<!-- ══════════ 폰 ══════════ -->
+<div class="phone">
+  <div class="statusbar"><span>10:26</span><span class="sig">▮▮ ᯤ ▰</span></div>
+
+  <!-- 1. 시작 -->
+  <div class="screen show center" data-screen="1" data-name="시작">
+    <div class="spacer"></div>
+    <div class="mascot">🌱</div>
+    <div class="title" style="margin-top:24px">맬리브레인</div>
+    <div class="lede" style="margin-top:12px">매일 5분,<br>두뇌 건강을 지켜요</div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(2)">시작하기</button>
+  </div>
+
+  <!-- 2. 전화번호 -->
+  <div class="screen" data-screen="2" data-name="전화번호">
+    <div style="height:40px"></div>
+    <div class="title">전화번호를 넣어주세요</div>
+    <div class="body" style="margin-top:12px">앱에 들어갈 때 쓰는 번호예요</div>
+    <input class="input" style="margin-top:24px" type="tel" inputmode="numeric" placeholder="010-0000-0000">
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(3)">다음</button>
+  </div>
+
+  <!-- 3. 인증번호 -->
+  <div class="screen" data-screen="3" data-name="인증번호">
+    <div style="height:40px"></div>
+    <div class="title">인증번호를 넣어주세요</div>
+    <div class="body" style="margin-top:12px">문자로 온 숫자 6자리를 넣어주세요</div>
+    <div class="otp" style="margin-top:24px">
+      <div class="cell filled">1</div><div class="cell filled">2</div><div class="cell filled">3</div>
+      <div class="cell">·</div><div class="cell">·</div><div class="cell">·</div>
+    </div>
+    <div class="cap" style="margin-top:16px">문자가 안 오면 다시 보내기를 눌러요</div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(4)">확인</button>
+  </div>
+
+  <!-- 4. 환영·첫 활동 안내 (실가입 진입) -->
+  <div class="screen" data-screen="4" data-name="환영·첫활동">
+    <div style="height:32px"></div>
+    <div class="mascot-sm center" style="text-align:center">🌱</div>
+    <div class="title" style="margin-top:16px;text-align:center">오늘은 딱 하나만<br>해볼게요</div>
+    <div class="body" style="margin-top:12px;text-align:center">천천히 해도 괜찮아요.<br>어렵지 않은 것부터 시작해요.</div>
+
+    <!-- 조력자(가족) 연결 안내 카드 (선택) -->
+    <div class="card" style="margin-top:24px;background:var(--tint)">
+      <div style="font-size:18px;font-weight:700;color:var(--ink)">혼자 하기 어려우면<br>가족을 연결해요</div>
+      <div class="cap" style="margin-top:8px">가족이 대신 도와줄 수 있어요</div>
+      <button class="btn btn-tint" style="margin-top:12px;height:52px;background:#fff"
+        onclick="alert('가족 연결 안내(프로토타입)')">가족 연결하기</button>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(5)">첫 활동 시작하기</button>
+  </div>
+
+  <!-- 5. 첫 활동 -->
+  <div class="screen" data-screen="5" data-name="첫활동">
+    <div style="height:40px"></div>
+    <div class="badge">가볍게 · 운동</div>
+    <div class="title" style="margin-top:12px">가볍게 어깨 돌리기</div>
+    <div class="card" style="margin-top:24px">
+      <div class="lede">1. 허리를 펴고 앉아요</div>
+      <div class="lede" style="margin-top:16px">2. 두 어깨를 천천히 뒤로 돌려요</div>
+      <div class="lede" style="margin-top:16px">3. 다섯 번 반복해요</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(6)">따라 했어요 · 완료</button>
+  </div>
+
+  <!-- 6. 첫 완료 축하 (실가입 확정 트리거) -->
+  <div class="screen center" data-screen="6" data-name="완료축하">
+    <div class="spacer"></div>
+    <div class="mascot">🎉</div>
+    <div class="title" style="margin-top:24px">잘하셨어요!<br>첫 활동 완료</div>
+    <div class="badge" style="margin-top:16px;font-size:18px">🔥 연속 1일째</div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="go(7)">홈으로</button>
+  </div>
+
+  <!-- 7. 첫 주 홈 (점진 개방) -->
+  <div class="screen" data-screen="7" data-name="첫주홈">
+    <div style="height:8px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="cap">치매예방교실 26년</div>
+      <div class="badge" id="streakBadge">🔥 연속 1일</div>
+    </div>
+    <div class="title" style="margin-top:12px">복순님,<br><span id="homeLead">오늘 할 것 하나예요</span></div>
+
+    <div id="trackList" style="margin-top:20px"></div>
+
+    <div class="card" id="checkupCard" style="margin-top:8px;background:var(--tint);display:none">
+      <div style="font-size:17px;font-weight:700;color:var(--primary-text)">이번 주가 지나면<br>건강검사를 안내드려요</div>
+    </div>
+    <div class="cap" id="checkupHint" style="margin-top:12px">이번 주가 지나면 건강검사를 안내드려요</div>
+    <div style="height:24px"></div>
+  </div>
+
+</div>
+
+<script>
+// ══ 온보딩 계측 훅 (대표 지시: 로그는 4기 '앱' 개선에 넣는다 — 신청폼 웹엔 안 넣음) ══
+// 목적: 첫주 71% 이탈이 '어느 단계에서' 나는지 가설 아닌 사실로 잡는다(TF-④).
+// 잡아야 할 단계(설치→전화인증→출생연도/성별→첫활동=실가입→첫주 일차별)마다
+//   진입(enter)·완료(complete)·이탈(exit) 3종을 남긴다.
+// ⚠ 실제 앱에는 인증(화면3)과 첫활동(화면4) 사이에 '출생연도/성별' 단계가 있다
+//   — 이 라이트 프로토타입엔 화면이 없으니 계측 목록에만 포함(birth_gender).
+// 아래는 자리만 잡은 no-op 스텁 — 실제 구현은 앱 계측 SDK에 연결한다.
+var STEP = {1:'install_splash',2:'phone_auth',3:'phone_verify',/*birth_gender,*/4:'welcome_first',5:'first_activity',6:'first_done',7:'week1_home'};
+function logEvent(step, type /* 'enter'|'complete'|'exit' */){
+  /* TODO(4기 앱): 계측 SDK 연결. payload = {step, type, day, ts, anonId}. 지금은 no-op. */
+}
+
+// ── 화면 전환 ──
+var screens = document.querySelectorAll('.screen');
+function go(n){
+  logEvent(STEP[n], 'enter'); // ← 단계 진입 이벤트 훅
+  screens.forEach(function(s){ s.classList.toggle('show', s.dataset.screen == n); });
+  screens.forEach(function(s){ if(s.dataset.screen == n) s.scrollTop = 0; });
+  document.querySelectorAll('.navbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.go == n); });
+  if(n == 7) renderHome();
+}
+
+// ── 검수 패널: 화면 점프 목록 ──
+var navHtml = '';
+screens.forEach(function(s){
+  navHtml += '<div class="navbtn" data-go="'+s.dataset.screen+'" onclick="go('+s.dataset.screen+')">'
+    + s.dataset.screen + '. ' + s.dataset.name + '</div>';
+});
+document.getElementById('navList').innerHTML = navHtml;
+document.querySelector('.navbtn').classList.add('on');
+
+// ── 점진 개방: 날짜별 트랙 상태 ──
+var day = 1;
+// 트랙별로 며칠차에 열리는지 정의 — 한 곳에서만 읽는 정책값
+var tracks = [
+  { name:'가볍게 어깨 돌리기', cat:'운동', icon:'🧘', openDay:1 },
+  { name:'진짜 색깔 찾기',     cat:'게임', icon:'🎮', openDay:2 },
+  { name:'오늘의 마음 살피기', cat:'마음', icon:'💚', openDay:4 }
+];
+
+function renderHome(){
+  var openCount = tracks.filter(function(t){ return day >= t.openDay; }).length;
+  document.getElementById('homeLead').textContent =
+    openCount === 1 ? '오늘 할 것 하나예요' : '오늘 할 것 ' + openCount + '가지예요';
+  document.getElementById('streakBadge').textContent = '🔥 연속 ' + day + '일';
+
+  var html = '';
+  tracks.forEach(function(t){
+    if(day >= t.openDay){
+      html += '<div class="row" onclick="alert(\''+t.name+' (프로토타입)\')">'
+        + '<div class="ic" style="background:var(--tint)">'+t.icon+'</div>'
+        + '<div class="grow"><div class="rt">'+t.name+'</div><div class="rs">'+t.cat+' · 5분</div></div>'
+        + '<div class="lock" style="background:var(--tint);color:var(--primary-text)">시작</div></div>';
+    } else {
+      html += '<div class="row locked">'
+        + '<div class="ic">🔒</div>'
+        + '<div class="grow"><div class="rt">'+t.name+'</div><div class="rs">'+t.cat+'</div></div>'
+        + '<div class="lock">'+t.openDay+'일차에 열려요</div></div>';
+    }
+  });
+  document.getElementById('trackList').innerHTML = html;
+
+  // 검사 안내는 4일차에 카드로, 그 전엔 작은 안내로 분리
+  document.getElementById('checkupCard').style.display = day >= 4 ? 'block' : 'none';
+  document.getElementById('checkupHint').style.display = day >= 4 ? 'none' : 'block';
+}
+
+document.querySelectorAll('.daybtn').forEach(function(b){
+  b.onclick = function(){
+    day = parseInt(b.dataset.day, 10);
+    document.querySelectorAll('.daybtn').forEach(function(x){ x.classList.toggle('on', x === b); });
+    go(7);
+  };
+});
+document.querySelector('.daybtn').classList.add('on');
+</script>
+</body>
+</html>
